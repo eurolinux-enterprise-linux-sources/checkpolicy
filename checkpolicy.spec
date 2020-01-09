@@ -1,13 +1,14 @@
-%define libselinuxver 2.1.13-1
-%define libsepolver 2.1.9-1
+%define libselinuxver 2.5-5
+%define libsepolver 2.5-6
 Summary: SELinux policy compiler
 Name: checkpolicy
-Version: 2.1.12
-Release: 6%{?dist}
+Version: 2.5
+Release: 4%{?dist}
 License: GPLv2
 Group: Development/System
-Source: http://www.nsa.gov/selinux/archives/%{name}-%{version}.tgz
-Patch: checkpolicy-rhat.patch
+Source: https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20160223/checkpolicy-2.5.tar.gz
+# HEAD e7ab0f8b86a3f6234f264d3bf98ccfb070ebaca7
+Patch1: checkpolicy-rhel.patch
 
 BuildRoot: %{_tmppath}/%{name}-buildroot
 BuildRequires: byacc bison flex flex-static libsepol-static >= %{libsepolver} libselinux-devel  >= %{libselinuxver} 
@@ -27,8 +28,8 @@ This package contains checkpolicy, the SELinux policy compiler.
 Only required for building policies. 
 
 %prep
-%setup -q
-%patch -p2 -b .rhat
+%setup -q -n checkpolicy-2.5
+%patch1 -p1 -b .rhel
 
 %build
 make clean
@@ -48,6 +49,8 @@ rm -rf ${RPM_BUILD_ROOT}
 
 %files
 %defattr(-,root,root)
+%{!?_licensedir:%global license %%doc}
+%license COPYING
 %{_bindir}/checkpolicy
 %{_bindir}/checkmodule
 %{_mandir}/man8/checkpolicy.8.gz
@@ -56,6 +59,22 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_bindir}/sedispol
 
 %changelog
+* Thu Aug 11 2016 Petr Lautrbach <plautrba@redhat.com> 2.5-4
+- Extend checkpolicy pathname matching
+
+* Mon Jun 27 2016 Petr Lautrbach <plautrba@redhat.com> - 2.5-3
+- Fix typos in test/dispol
+- Set flex as default lexer
+- Fix checkmodule output message
+- Build policy on systems not supporting DCCP protocol
+- Fail if module name different than output base filename
+
+* Mon Apr 11 2016 Petr Lautrbach <plautrba@redhat.com> - 2.5-2
+- Add support for portcon dccp protocol
+
+* Tue Feb 23 2016 Petr Lautrbach <plautrba@redhat.com> 2.5-1
+- Update to upstream release 2016-02-23
+
 * Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 2.1.12-6
 - Mass rebuild 2014-01-24
 
