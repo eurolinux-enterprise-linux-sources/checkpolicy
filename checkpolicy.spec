@@ -3,7 +3,7 @@
 Summary: SELinux policy compiler
 Name: checkpolicy
 Version: 2.1.12
-Release: 4%{?dist}
+Release: 6%{?dist}
 License: GPLv2
 Group: Development/System
 Source: http://www.nsa.gov/selinux/archives/%{name}-%{version}.tgz
@@ -56,6 +56,12 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_bindir}/sedispol
 
 %changelog
+* Fri Jan 24 2014 Daniel Mach <dmach@redhat.com> - 2.1.12-6
+- Mass rebuild 2014-01-24
+
+* Fri Dec 27 2013 Daniel Mach <dmach@redhat.com> - 2.1.12-5
+- Mass rebuild 2013-12-27
+
 * Tue Jul 16 2013 Dan Walsh <dwalsh@redhat.com> - 2.1.12-4
 - Fix a segmentation fault if the --handle-unknown option was set without
 arguments.
