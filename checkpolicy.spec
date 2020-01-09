@@ -1,13 +1,13 @@
-%define libselinuxver 2.5-12
-%define libsepolver 2.5-8
+%define libselinuxver 2.5-14.1
+%define libsepolver 2.5-10
 Summary: SELinux policy compiler
 Name: checkpolicy
 Version: 2.5
-Release: 6%{?dist}
+Release: 8%{?dist}
 License: GPLv2
 Group: Development/System
 Source: https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20160223/checkpolicy-2.5.tar.gz
-# HEAD f4e2ab4e29496130bc89dddf8096e9367b25665b
+# HEAD bfaa258580f74440ca92d68828ac31f58656f5ef
 Patch1: checkpolicy-rhel.patch
 
 BuildRoot: %{_tmppath}/%{name}-buildroot
@@ -59,6 +59,12 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_bindir}/sedispol
 
 %changelog
+* Thu Jul 26 2018 Vit Mojzis <vmojzis@redhat.com> - 2.5-8
+- Add support for the SCTP portcon keyword (#1572269)
+
+* Fri May 11 2018 Vit Mojzis <vmojzis@redhat.com> - 2.5-7
+- Incorporate support for extended_socket_class from libsepol (#1572269)
+
 * Thu Oct 19 2017 Vit Mojzis <vmojzis@redhat.com> - 2.5-6
 - Add ibendport ocontext handling
 - Add support for ibendportcon labels
