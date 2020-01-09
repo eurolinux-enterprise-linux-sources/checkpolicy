@@ -1,13 +1,13 @@
-%define libselinuxver 2.5-5
-%define libsepolver 2.5-6
+%define libselinuxver 2.5-12
+%define libsepolver 2.5-8
 Summary: SELinux policy compiler
 Name: checkpolicy
 Version: 2.5
-Release: 4%{?dist}
+Release: 6%{?dist}
 License: GPLv2
 Group: Development/System
 Source: https://raw.githubusercontent.com/wiki/SELinuxProject/selinux/files/releases/20160223/checkpolicy-2.5.tar.gz
-# HEAD e7ab0f8b86a3f6234f264d3bf98ccfb070ebaca7
+# HEAD f4e2ab4e29496130bc89dddf8096e9367b25665b
 Patch1: checkpolicy-rhel.patch
 
 BuildRoot: %{_tmppath}/%{name}-buildroot
@@ -59,6 +59,16 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_bindir}/sedispol
 
 %changelog
+* Thu Oct 19 2017 Vit Mojzis <vmojzis@redhat.com> - 2.5-6
+- Add ibendport ocontext handling
+- Add support for ibendportcon labels
+- Add ibpkey ocontext handling
+- Add support for ibpkeycon labels
+- Add binary module support for xperms
+
+* Mon Sep 25 2017 Vit Mojzis <vmojzis@redhat.com> - 2.5-5
+- Rebuild to incorporate cgroup_seclabel capability introduced in libsepol (rhbz#1494179)
+
 * Thu Aug 11 2016 Petr Lautrbach <plautrba@redhat.com> 2.5-4
 - Extend checkpolicy pathname matching
 
